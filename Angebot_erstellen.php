@@ -3,7 +3,7 @@
 function create_Organisation_Offer( $orga_name, $startCountry, $startVillage,
                         $destinationCountry, $destinationVillage, $startDate, $endDate, $products)
 {
-    START_SESSION();
+    //START_SESSION();
     
     //$_SESSION["accountID"];
     
@@ -16,32 +16,40 @@ function create_Organisation_Offer( $orga_name, $startCountry, $startVillage,
     
     $tableName1 = 'organisation_offer';
     $tableName2 = 'productsorgajoin';
+    $tableName3 = 'countries';
     //Colums for the table organisation_offer:
     $cOrga = 'organisation';
     $cStartC = 'startCountry';
     $cstartV = 'startVillage';
     $cdestC = 'destinationCountry';
     $cdestV = 'destinationVillage';
-    $cdate = 'startDate';
-    $cproduct = 'product';
+    $cdateStart = 'startDate';
+    $cdateEnd = 'endDate';
     $crespAcc = 'responsibleAcc';
     
     try{
-        $statement1 = $db->prepare("INSERT INTO $tableName1 t "
-                . "                 ($cOrga, $cStartC, $cstartV, $cdestC, $cdestV, $cdate, $cproduct, $crespAcc) VALUES(?,?,?,?,?,?,?,?)");
-        $statement1->execute(array($orga_name, $startCountry, $startVillage,
-                            $destinationCountry, $destinationVillage, $startDate, $endDate, $_SESSION["accountID"] ));
+        $statement00 = $db->prepare("SELECT ID FROM $tableName3 WHERE countryName LIKE '$startCountry'");
+        $statement00->execute();
+        $startCountry1 = $statement00->fetchColumn();
+        
+        $statement01 = $db->prepare("SELECT ID FROM $tableName3 WHERE countryName LIKE '$destinationCountry'");
+        $statement01->execute();
+        $destinationCountry1 = $statement01->fetchColumn();
+        
+        $statement1 = $db->prepare("INSERT INTO $tableName1 "
+                . "                 ($cOrga, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?)");
+        $statement1->execute(array($orga_name, $startCountry1, $startVillage,
+                            $destinationCountry1, $destinationVillage, $startDate, $endDate, /*$_SESSION["accountID"]*/ 1 ));
         $lastInsertID = $db->lastInsertId();
 
         foreach ($products as $p){
-            $statement2 = $db->prepare("INSERT INTO $tableName2 values( (SELECT products.ID FROM products WHERE products.productname LIKE $p), $lastInsertID)");
+            $statement2 = $db->prepare("INSERT INTO $tableName2 values( (SELECT products.ID FROM products WHERE products.productname LIKE '$p'), $lastInsertID)");
             $statement2->execute();
         }
     }
-    catch(Exceptio $e){
+    catch(Exception $e){
         
-        echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator.";
-        
+        echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator.";        
     }
 }
 ?>

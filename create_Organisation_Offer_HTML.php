@@ -6,6 +6,8 @@ $db = new PDO('mysql:host=localhost;
        charset=utf8', 'guest', '', 
        array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
+include 'Angebot_erstellen.php';
+
 //function must be placed between <select><\select>
 function selectCountryDropbox(){
 
@@ -116,19 +118,20 @@ function test_input($data) {
         <?php 
             if ($_SERVER["REQUEST_METHOD"] == "POST"){
                $name = test_input($_POST["orga"]);
-               if(isset($_POST["newstartCountry"]))
+               if($_POST["newstartCountry"] != ""){
                     $startCountry = test_input($_POST["newstartCountry"]);
+               }
                else
                     $startCountry = test_input($_POST["StartCountry"]);
                $startVillage = test_input($_POST["startVillage"]);
-               if(isset($_POST["newdestCountry"]))
+               if($_POST["newdestCountry"] != "")
                     $destCountry = test_input($_POST["newdestCountry"]);
                else
                     $destCountry = test_input($_POST["EndCountry"]);
                $destVillage = test_input($_POST["destVillage"]);
                $startDate = test_input($_POST["startDate"]);
                $endDate = test_input($_POST["endDate"]);
-               $products = test_input($_POST["productChoice"]);
+               $products = ($_POST["productChoice"]);
                
                create_Organisation_Offer($name, $startCountry, $startVillage, $destCountry, $destVillage, $startDate, $endDate, $products);
             }
