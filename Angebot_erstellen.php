@@ -52,16 +52,3 @@ function create_Organisation_Offer( $orga_name, $startCountry, $startVillage,
         echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator.";        
     }
 }
-?>
-
-<html>
-
-    <body>
-        
-        
-        
-        
-    </body>
-    
-    
-</html>
