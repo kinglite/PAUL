@@ -1,24 +1,27 @@
 <?php
 
-function create_Organisation_Offer( $orga_name, $startCountry, $startVillage,
+include '../dbConnect.php';
+
+function create_Organisation_Offer( $table, $orga_name, $startCountry, $startVillage,
                         $destinationCountry, $destinationVillage, $startDate, $endDate, $products)
 {
-    //START_SESSION();
+    global $db;
     
-    //$_SESSION["accountID"];
-    
-    $username = 'guest';
-    $passwort = '';
-    $db = new PDO('mysql:host=localhost;
-                    dbname=PAUL;
-                    charset=utf8', $username, $passwort, 
-                    array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    
-    $tableName1 = 'organisation_offer';
-    $tableName2 = 'productsorgajoin';
+    $tableName1 = $table;
+    if($tableName1 == 'organisation_offer'){
+        $tableName2 = 'productsorgajoin';
+    }
+    else{
+        $tableName2 = 'productsdelivererjoin';
+    }
     $tableName3 = 'countries';
     //Colums for the table organisation_offer:
-    $cOrga = 'organisation';
+    if($tableName1 == 'organisation_offer'){
+        $cName = 'organisation';
+    }
+    else{
+        $cName = 'name';
+    }
     $cStartC = 'startCountry';
     $cstartV = 'startVillage';
     $cdestC = 'destinationCountry';
@@ -37,7 +40,7 @@ function create_Organisation_Offer( $orga_name, $startCountry, $startVillage,
         $destinationCountry1 = $statement01->fetchColumn();
         
         $statement1 = $db->prepare("INSERT INTO $tableName1 "
-                . "                 ($cOrga, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?)");
+                . "                 ($cName, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?)");
         $statement1->execute(array($orga_name, $startCountry1, $startVillage,
                             $destinationCountry1, $destinationVillage, $startDate, $endDate, /*$_SESSION["accountID"]*/ 1 ));
         $lastInsertID = $db->lastInsertId();
@@ -49,6 +52,6 @@ function create_Organisation_Offer( $orga_name, $startCountry, $startVillage,
     }
     catch(Exception $e){
         
-        echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator.";        
+        echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator:". $e;        
     }
 }
