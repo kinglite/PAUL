@@ -4,7 +4,7 @@
     <head>
         <noscript>
     <div id="nojava">
-        Um unsere Onlineberatung korrekt nutzen Sie können, aktivieren Sie bitte JavaScript in Ihren Browsereinstellungen.
+        korrekt nutzen Sie können, aktivieren Sie bitte JavaScript in Ihren Browsereinstellungen.
         Link zur Homepage.
       <meta http-equiv="refresh" content="0; URL=http://localhost/Mall/noscript.php">
     </div>
