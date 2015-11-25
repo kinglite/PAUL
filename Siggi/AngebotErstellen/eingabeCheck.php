@@ -117,5 +117,8 @@
                 
                 if($postOK){
                     create_Organisation_Offer($table, $name, $startCountry, $startVillage, $destCountry, $destVillage, reformDate($startDate), reformDate($endDate), $products);
+                    
+                    //TO DO leere.php ersetzen mit Auflistung der eingegebenen Daten
+                    header('Location: leere.php');
                 }
             }

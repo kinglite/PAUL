@@ -35,7 +35,7 @@ function checkBoxProducts(){
   
         echo "<p><input type=\"checkbox\" name=\"productChoice[]\" value=$row[productname] id=$row[productname] ";
              if(isset($_POST["productChoice"]) && in_array($row["productname"], $_POST["productChoice"])){
-                 echo "checked";
+                 echo "checked=\"checked\" ";
              }
              else{ 
                  echo "";

@@ -43,6 +43,7 @@ function create_Organisation_Offer( $table, $orga_name, $startCountry, $startVil
                 . "                 ($cName, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?)");
         $statement1->execute(array($orga_name, $startCountry1, $startVillage,
                             $destinationCountry1, $destinationVillage, $startDate, $endDate, /*$_SESSION["accountID"]*/ 1 ));
+        //TODO /*$_SESSION["accountID"]*/ (siehe Zeile darüber)
         $lastInsertID = $db->lastInsertId();
 
         foreach ($products as $p){
