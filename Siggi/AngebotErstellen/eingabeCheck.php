@@ -15,25 +15,28 @@
                 }
                 $name = test_input($_POST["name"]);
                 
-            
-                //STARTCOUNTRY---------------------------------
-                if(!empty($_POST["newStartCountry"])){
-                    if (!preg_match("/^[a-zA-Z ]*$/",$_POST["newStartCountry"])) {
-                        $startCErr = "Bitte nur Buchstaben und Leerzeichen eingeben";
+                //ANSPRECHPARTNER------------------------------
+                if (isset($_POST["contact"])){
+                    if(!preg_match("/^[a-zA-Z ]*$/",$_POST["contact"])) {
+                        $postOK = false;
+                        $contactErr = "Bitte nur Buchstaben und Leerzeichen eingeben";
                     }
-                    
-                    $startCountry = test_input($_POST["newStartCountry"]);
-                    
+                    $contact = test_input($_POST["contact"]);
                 }
-                else{
-                    if( $_POST["startCountry"] == ""){
                 
-                    $startCErr = "Bitte Land auswählen oder eigenes Land eingeben"; 
-                    $postOK = false;    
-                    }
-                    
-                    $startCountry = test_input($_POST["startCountry"]);
+                //eMAIL---------------------------------
+                
+                $eMail = test_input($_POST["eMail"]);
+                
+                //STARTCOUNTRY---------------------------------
+                if( $_POST["startCountry"] == ""){
+
+                $startCErr = "Bitte Land auswählen oder eigenes Land eingeben"; 
+                $postOK = false;    
                 }
+
+                $startCountry = test_input($_POST["startCountry"]);
+                
                 
                 //STARTVILLAGE---------------------------------
                 if(empty($_POST["startVillage"])){
@@ -48,24 +51,13 @@
                 
 
                 //DESTINATIONCOUNTRY---------------------------------
-                if(!empty($_POST["newDestCountry"])){
-                    if (!preg_match("/^[a-zA-Z ]*$/",$_POST["newDestCountry"])) {
-                        $destCErr = "Bitte nur Buchstaben und Leerzeichen eingeben";
-                    }
-                    
-                    $destCountry = test_input($_POST["newDestCountry"]);
-                    
-                }
-                else{
-                    if( $_POST["destCountry"] == ""){
-                      $destCErr = "Bitte Land auswählen oder eigenes Land eingeben"; 
-                      $postOK = false;
-                    }
-                    
-                    $destCountry = test_input($_POST["destCountry"]);
-                    
+                if( $_POST["destCountry"] == ""){
+                  $destCErr = "Bitte Land auswählen oder eigenes Land eingeben"; 
+                  $postOK = false;
                 }
 
+                $destCountry = test_input($_POST["destCountry"]);
+                    
                 //DESTINATIONVILLAGE---------------------------------
                 if(empty($_POST["destVillage"])){
                    $destVErr = "Bitte Dorf eingeben"; 
@@ -88,7 +80,7 @@
                     $startDate = (new DateTime($_POST["startDate"]))->format('d.m.Y');
                 }
                 else{
-                    $startDateErr = "Bitte gültiges Datum eingeben (T.M.Y)";
+                    $startDateErr = "Bitte gültiges Datum eingeben (tt.mm.yyyy)";
                     $postOK = false;
                     $startDate = test_input($_POST["startDate"]);
                 }        
@@ -102,9 +94,20 @@
                     $endDate = (new DateTime($_POST["endDate"]))->format('d.m.Y');
                 }
                 else{
-                    $endDateErr = "Bitte gültiges Datum eingeben (T.M.J)";
+                    $endDateErr = "Bitte gültiges Datum eingeben (tt.mm.yyyy)";
                     $postOK = false;
                     $endDate = test_input($_POST["endDate"]);
+                }
+                
+                //DATECHECK--------------------------------
+                
+                if(strtotime(date('d.m.Y')) > strtotime(date($startDate))){
+                    $startDateErr = "Datum muss heute oder in der Zukunft sein.";
+                    $postOK = false;
+                }
+                else if(strtotime(date($endDate)) <= strtotime(date($startDate))){
+                    $endDateErr = "Datum muss nach dem Startdatum sein";
+                    $postOK = false;
                 }
 
                 //PRODUCTS---------------------------------
@@ -114,11 +117,17 @@
                 }
                 else
                     $products = $_POST["productChoice"];
-                
-                if($postOK){
-                    create_Organisation_Offer($table, $name, $startCountry, $startVillage, $destCountry, $destVillage, reformDate($startDate), reformDate($endDate), $products);
-                    
+                                
+                /*if($postOK){
+                    try{
+                    create_Offer($table, $name, $contact, $eMail, $startCountry, $startVillage, $destCountry, $destVillage, reformDate($startDate), reformDate($endDate), $products);
                     //TO DO leere.php ersetzen mit Auflistung der eingegebenen Daten
                     header('Location: leere.php');
-                }
+                    
+                    }
+                    catch(Exception $e){
+                        echo "Fehler beim Datenbankzugriff. Bitte dem Administrator Bescheid geben.";
+                    }
+                    
+                }*/
             }

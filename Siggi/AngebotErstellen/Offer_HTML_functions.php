@@ -1,6 +1,8 @@
 <?php
 
 global $nameErr;
+global $contactErr;
+global $eMailErr;
 global $startCErr;
 global $startVErr;
 global $destCErr;
@@ -9,6 +11,9 @@ global $startDateErr;
 global $endDateErr;
 global $productErr;
 global $name; 
+global $contact;
+$contact = NULL;
+global $eMail;
 global $startCountry;
 global $startVillage; 
 global $destCountry; 

@@ -2,7 +2,7 @@
 
 include '../dbConnect.php';
 
-function create_Organisation_Offer( $table, $orga_name, $startCountry, $startVillage,
+function create_Offer( $table, $name, $contact, $eMail, $startCountry, $startVillage,
                         $destinationCountry, $destinationVillage, $startDate, $endDate, $products)
 {
     global $db;
@@ -16,12 +16,9 @@ function create_Organisation_Offer( $table, $orga_name, $startCountry, $startVil
     }
     $tableName3 = 'countries';
     //Colums for the table organisation_offer:
-    if($tableName1 == 'organisation_offer'){
-        $cName = 'organisation';
-    }
-    else{
-        $cName = 'name';
-    }
+    $cName = 'name';
+    $cContact = 'contact';
+    $ceMail = 'eMail';
     $cStartC = 'startCountry';
     $cstartV = 'startVillage';
     $cdestC = 'destinationCountry';
@@ -39,10 +36,18 @@ function create_Organisation_Offer( $table, $orga_name, $startCountry, $startVil
         $statement01->execute();
         $destinationCountry1 = $statement01->fetchColumn();
         
-        $statement1 = $db->prepare("INSERT INTO $tableName1 "
-                . "                 ($cName, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?)");
-        $statement1->execute(array($orga_name, $startCountry1, $startVillage,
+        if($tableName1 == 'organisation_offer'){
+            $statement1 = $db->prepare("INSERT INTO $tableName1 "
+                . "                 ($cName, $cContact, $ceMail, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            $statement1->execute(array($name, $contact, $eMail, $startCountry1, $startVillage,
                             $destinationCountry1, $destinationVillage, $startDate, $endDate, /*$_SESSION["accountID"]*/ 1 ));
+        }
+        else{
+            $statement1 = $db->prepare("INSERT INTO $tableName1 "
+                . "                 ($cName, $ceMail, $cStartC, $cstartV, $cdestC, $cdestV, $cdateStart, $cdateEnd, $crespAcc) VALUES(?,?,?,?,?,?,?,?,?)");
+            $statement1->execute(array($name, $eMail, $startCountry1, $startVillage,
+                            $destinationCountry1, $destinationVillage, $startDate, $endDate, /*$_SESSION["accountID"]*/ 1 ));
+        }
         //TODO /*$_SESSION["accountID"]*/ (siehe Zeile darüber)
         $lastInsertID = $db->lastInsertId();
 
@@ -53,6 +58,6 @@ function create_Organisation_Offer( $table, $orga_name, $startCountry, $startVil
     }
     catch(Exception $e){
         
-        echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator:". $e;        
+        echo "Fehler beim Datenbankzugriff. Kontaktieren Sie den Administrator.";        
     }
 }

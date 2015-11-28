@@ -3,39 +3,66 @@
     
     <body>
         <table style="width: 100%">
-            <tr>
+            <tr align="left">
                           <th>Angebots-ID</th>
-                          <th>Organisation</th>
+                          <th>Name</th>
                           <th>Startland</th>
                           <th>Startdorf</th>
                           <th>Zielland</th>
                           <th>Zieldorf</th>
-                          <th>Datum</th>
+                          <th>Startdatum</th>
+                          <th>Produkt</th>
                           <th>Kontakt</th>
             </tr>
             <?php
-                  $db = new PDO('mysql:host=localhost;
-                                                  dbname=PAUL;
-                                                  charset=utf8', 'guest', '', 
-                                                  array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                  include './dbConnect.php';
 
-                  $statement = 'SELECT oo.id, oo.organisation, c1.countryName as startCountry, oo.startVillage, c2.countryName as destCountry, oo.destinationVillage, '
-                          . 'oo.startDate FROM organisation_offer oo '
+
+                  $statement = 'SELECT oo.id, oo.name, c1.countryName as startCountry, oo.startVillage, c2.countryName as destCountry, oo.destinationVillage, oo.startDate, prod.pr '
+                          . 'FROM '
+                          . '(SELECT p.productname as pr, o.ID '
+                          . 'FROM productsorgajoin poj '
+                          . 'join products p on poj.ID_product = p.ID '
+                          . 'join organisation_offer o on poj.ID_organisationOffer = o.ID) prod, organisation_offer oo '
                           . 'join countries c1 on oo.startCountry = c1.id '
-                          . 'join countries c2 on oo.destinationCountry = c2.ID';
-                  foreach($db->query($statement) as $row)
+                          . 'join countries c2 on oo.destinationCountry = c2.ID '
+                          . 'WHERE prod.ID = oo.ID';
+                   $id = -1;
+                   $counter = 0;
+                   
+                  $test=$db->query($statement);
+                  $test->fetch();
+                  foreach($iter=$db->query($statement) as $row)
                   /*while($row = mysql_fetch_array($result))*/
-                  {   //Creates a loop to loop through results
-                          echo "<tr>\n";
+                  {   //Creates a loop to loop through results                       
+                      if($id != htmlspecialchars($row['id'])){
+                          $id = htmlspecialchars($row['id']);
+                          echo "<tr align=\"left\">\n";
                           echo "<td>" . htmlspecialchars($row['id']) . "</td>\n";
-                          echo "<td>" . htmlspecialchars($row['organisation']) . "</td>\n";
+                          echo "<td>" . htmlspecialchars($row['name']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['startCountry']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['startVillage']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['destCountry']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['destinationVillage']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['startDate']) . "</td>\n";
+                          echo "<td>";
+                          
+                          do{
+                            echo htmlspecialchars($row['pr']);
+                            
+                            if(($temp = $test->fetchColumn()) == $id){
+                                $row = $iter->fetch();
+                                echo ", ";
+                            }
+                            else {
+                                break;
+                            }
+                                                  
+                          }while(true);
+                          echo "</td>\n";
                           echo "<td>" . "<a href=\"mailto.html/mail?\">kontaktieren </a></td>\n";
                           echo "</tr>";  //$row['index'] the index here is a field name
+                      }
                   }
             ?>
         </table>

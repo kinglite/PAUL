@@ -1,11 +1,8 @@
 <?php
-
-$table = 'deliverer_offer';
-include 'Angebot_erstellen.php';
-include 'Offer_HTML_functions.php';
-include 'eingabeCheck.php';
+include './Angebot_erstellen.php';
+include './Offer_HTML_functions.php';
+include './eingabeCheck.php';
 ?>
-
 
 <!Doctype HTML>
 <html>
@@ -23,12 +20,29 @@ include 'eingabeCheck.php';
     
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
-            <p>Ihr Organame*: <input type="text" name="name" value="<?php echo $name; ?>"/>
-                <span class="error"> <?php echo $nameErr;?></span>
+            <?php
+            if($table == 'deliverer_offer'){
+                echo "<p>Ihr Name*: <input type=\"text\" name=\"name\" value=\"$name\" required=\"required\">" .
+                "<span class=\"error\"> $nameErr</span>" .
+            "</p>";
+            }
+            else{
+              echo "<p>Ihr Organame*: <input type=\"text\" name=\"name\" value=\"$name\" required=\"required\">" .
+                "<span class=\"error\"> $nameErr</span>" .
+            "</p>";
+              echo "<p>Ansprechpartner: <input type=\"text\" name=\"contact\" value=$contact>" .
+                "<span class=\"error\"> $contactErr</span>" .
+            "</p>";
+            }
+            ?>
+            
+            <p>Ihre eMail*: <input type="email" name="eMail" value="<?php echo $eMail; ?>" required="required"/>
+                <span class="error"> <?php echo $eMailErr;?></span>
             </p>
+            
             <p>Das Startland*: 
             
-                <select name="startCountry">
+                <select name="startCountry" required="required">
                     <option value="<?php echo $startCountry; ?>"><?php echo $startCountry; ?></option>
                     <?php
                         selectCountryDropbox();
@@ -37,19 +51,12 @@ include 'eingabeCheck.php';
                 <span class="error"> <?php echo $startCErr;?></span>
             </p>  
                 
-            <p>gewünschtes Land nicht gelistet: <input type="text" name="newStartCountry"
-                <?php 
-                    if(!empty($_POST["newStartCountry"])){
-                        echo "value = \"$startCountry\"";
-                    }
-                ?> />
-            </p>
-            <p>Das Startdorf*: <input type="text" name="startVillage" value="<?php echo $startVillage; ?>"/>
+            <p>Das Startdorf*: <input type="text" name="startVillage" value="<?php echo $startVillage; ?>" required="required"/>
                 <span class="error"> <?php echo $startVErr;?></span>
             </p>
             <p>Das Zielland*:  
             
-                <select name="destCountry">
+                <select name="destCountry" required="required">
                     <option value="<?php echo $destCountry; ?>"><?php echo $destCountry; ?></option>
                     <?php
                         selectCountryDropbox();
@@ -58,21 +65,13 @@ include 'eingabeCheck.php';
                 <span class="error"> <?php echo $destCErr;?></span>
             </p>
             
-            <p>gewünschtes Land nicht gelistet: <input type="text" name="newDestCountry" 
-                                                       <?php 
-                    if(!empty($_POST["newDestCountry"])){
-                        echo "value = \"$destCountry\"";
-                    }
-                ?> />
-            </p>
-            
-            <p>Das Zieldorf*: <input type="text" name="destVillage" value="<?php echo $destVillage; ?>"/>
+            <p>Das Zieldorf*: <input type="text" name="destVillage" value="<?php echo $destVillage; ?>" required="required"/>
                 <span class="error"> <?php echo $destVErr;?></span>
             </p>
-            <p>Das Startdatum*: <input type="date" name="startDate" value="<?php echo $startDate; ?>"/>
+            <p>Das Startdatum*: <input type="date" name="startDate" value="<?php echo $startDate; ?>" required="required"/>
                 <span class="error"> <?php echo $startDateErr;?></span>
             </p>
-            <p>Das Enddatum*: <input type="date" name="endDate" value="<?php echo $endDate; ?>"/>
+            <p>Das Enddatum*: <input type="date" name="endDate" value="<?php echo $endDate; ?>" required="required"/>
                 <span class="error"> <?php echo $endDateErr;?></span>
             </p>
             <p>Welches Produkt: 
@@ -86,5 +85,3 @@ include 'eingabeCheck.php';
     </body>
     
 </html>
-
-
