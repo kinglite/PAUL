@@ -1,7 +1,10 @@
 <?php
 
-$get=strip_tags($get);
-$get=str_replace("\n", "", $get);
-$get=trim($get);
+function filterfunktion($input){
+$input=strip_tags($input);
+$input=str_replace("\n", "", $input);
+$input=trim($input);
+return $input;
+}
 
 ?>
