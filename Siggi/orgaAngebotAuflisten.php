@@ -15,18 +15,11 @@
                           <th>Kontakt</th>
             </tr>
             <?php
+                include './filterOrgalistFunction.php';
                   include './dbConnect.php';
 
-
-                  $statement = 'SELECT oo.id, oo.name, c1.countryName as startCountry, oo.startVillage, c2.countryName as destCountry, oo.destinationVillage, oo.startDate, prod.pr '
-                          . 'FROM '
-                          . '(SELECT p.productname as pr, o.ID '
-                          . 'FROM productsorgajoin poj '
-                          . 'join products p on poj.ID_product = p.ID '
-                          . 'join organisation_offer o on poj.ID_organisationOffer = o.ID) prod, organisation_offer oo '
-                          . 'join countries c1 on oo.startCountry = c1.id '
-                          . 'join countries c2 on oo.destinationCountry = c2.ID '
-                          . 'WHERE prod.ID = oo.ID';
+                  $statement = filterNone();
+                  //$statement = filterStartCountry("Deutschland");
                    $id = -1;
                    $counter = 0;
                    

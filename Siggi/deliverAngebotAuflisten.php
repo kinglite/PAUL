@@ -15,21 +15,10 @@
                           <th>Kontakt</th>
             </tr>
             <?php
-                  $db = new PDO('mysql:host=localhost;
-                                                  dbname=PAUL;
-                                                  charset=utf8', 'guest', '', 
-                                                  array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-
-
-                  $statement = 'SELECT do.id, do.name, c1.countryName as startCountry, do.startVillage, c2.countryName as destCountry, do.destinationVillage, do.startDate, prod.pr '
-                          . 'FROM '
-                          . '(SELECT p.productname as pr, d.ID '
-                          . 'FROM productsdelivererjoin pdj '
-                          . 'join products p on pdj.ID_product = p.ID '
-                          . 'join deliverer_offer d on pdj.ID_delivererOffer = d.ID) prod, deliverer_offer do '
-                          . 'join countries c1 on do.startCountry = c1.id '
-                          . 'join countries c2 on do.destinationCountry = c2.ID '
-                          . 'WHERE prod.ID = do.ID';
+                include './filterDelivererlistFunction.php';
+                include './dbConnect.php';
+                
+                  $statement = filterNone();
                    $id = -1;
                    $counter = 0;
                    
