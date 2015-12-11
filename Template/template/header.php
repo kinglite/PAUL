@@ -1,7 +1,7 @@
   <div id='menubg'>
   </div>
   <div class="container" style="margin-top:-52px;">
-  <a class="logo" href="#">Responsive 01</a>
+  <a class="logo" href="#">Paul</a>
 			<div id='cssmenu'>
 			<ul>
 			   <li><a href='#'>Start</a></li>

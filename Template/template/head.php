@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Responsive Template 01 | freietemplates.de</title>
+  <title>Paul</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -19,18 +19,18 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/Paul-flo/css/normalize.css">
+  <link rel="stylesheet" href="/Paul-flo/css/skeleton.css">
+  <link rel="stylesheet" href="/Paul-flo/css/style.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="/Paul-flo/images/favicon.png">
 
   <!-- CSS Menu responsive script
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-  <script src="script.js"></script>
+  <script src="/Paul-flo/template/script.js"></script>
 
 </head>
 <body>
