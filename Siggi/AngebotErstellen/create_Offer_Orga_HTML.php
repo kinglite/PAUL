@@ -1,5 +1,4 @@
 <?php
-
 $table = 'organisation_offer';
 include './create_Offer_allg_HTML.php';
 

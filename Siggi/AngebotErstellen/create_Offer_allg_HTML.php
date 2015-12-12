@@ -1,22 +1,16 @@
 <?php
+$root = $_SERVER['DOCUMENT_ROOT'];
+
 include './Angebot_erstellen.php';
 include './Offer_HTML_functions.php';
 include './eingabeCheck.php';
+
+//include head and header
+include_once ($root . "/PAUL/Template/template/head.php");
+include_once ($root . "/PAUL/Template/template/header.php");
+
 ?>
 
-<!Doctype HTML>
-<html>
-    
-    <head>
-        <style>
-            .error {color: #FF0000;}
-        </style>
-    </head>
-    
-    <body> 
-        <?php 
-
-        ?>
     
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
@@ -30,7 +24,7 @@ include './eingabeCheck.php';
               echo "<p>Ihr Organame*: <input type=\"text\" name=\"name\" value=\"$name\" required=\"required\">" .
                 "<span class=\"error\"> $nameErr</span>" .
             "</p>";
-              echo "<p>Ansprechpartner: <input type=\"text\" name=\"contact\" value=$contact>" .
+              echo "<p>Ansprechpartner: <input type=\"text\" name=\"contact\" value=\"$contact\">" .
                 "<span class=\"error\"> $contactErr</span>" .
             "</p>";
             }
@@ -82,6 +76,11 @@ include './eingabeCheck.php';
                 <span class="error"> <?php echo $productErr;?></span>
             <p><input type="submit" /></p>
         </form>
-    </body>
+
+
+<?php
+// include footer
+include_once ($root . "/PAUL/Template/template/footer.php");
+
+?>
     
-</html>

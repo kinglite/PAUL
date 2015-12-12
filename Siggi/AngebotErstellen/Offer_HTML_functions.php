@@ -76,7 +76,7 @@ function selectCountryDropbox(){
 
         foreach ( $db->query($statementStartC) as $row){
 
-            echo "<option chevalue=$row[countryname]>$row[countryname]</option>\n";
+            echo "<option value=$row[countryname]>$row[countryname]</option>\n";
         }
 
         } catch (Exception $ex) {

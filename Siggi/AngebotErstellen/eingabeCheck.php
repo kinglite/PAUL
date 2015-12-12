@@ -31,7 +31,7 @@
                 //STARTCOUNTRY---------------------------------
                 if( $_POST["startCountry"] == ""){
 
-                $startCErr = "Bitte Land auswählen oder eigenes Land eingeben"; 
+                $startCErr = "Bitte Land auswählen"; 
                 $postOK = false;    
                 }
 
@@ -52,7 +52,7 @@
 
                 //DESTINATIONCOUNTRY---------------------------------
                 if( $_POST["destCountry"] == ""){
-                  $destCErr = "Bitte Land auswählen oder eigenes Land eingeben"; 
+                  $destCErr = "Bitte Land auswählen"; 
                   $postOK = false;
                 }
 
