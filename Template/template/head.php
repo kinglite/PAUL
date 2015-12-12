@@ -19,18 +19,18 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/Paul-flo/css/normalize.css">
-  <link rel="stylesheet" href="/Paul-flo/css/skeleton.css">
-  <link rel="stylesheet" href="/Paul-flo/css/style.css">
+  <link rel="stylesheet" href="/PAUL/Template/css/normalize.css">
+  <link rel="stylesheet" href="/PAUL/Template/css/skeleton.css">
+  <link rel="stylesheet" href="/PAUL/Template/css/style.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/Paul-flo/images/favicon.png">
+  <link rel="icon" type="image/png" href="/PAUL/Template/images/favicon.png">
 
   <!-- CSS Menu responsive script
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-  <script src="/Paul-flo/template/script.js"></script>
+  <script src="/PAUL/Template/template/script.js"></script>
 
 </head>
 <body>
