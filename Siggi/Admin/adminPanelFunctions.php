@@ -9,6 +9,7 @@ global $destVillage;
 global $startDate; 
 global $endDate;
 global $product;
+global $productAdd;
 
 global $countryErr;
 

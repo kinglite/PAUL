@@ -1,19 +1,24 @@
 <?php
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+//include head and header
+include_once ($root . "/PAUL/Template/template/head.php");
+
 include '../dbConnect.php';
 include './adminPanelFunctions.php';
 
 ?>
-<html>
-    <head>
-        
-    </head>
-    <body>
+<p></p>
+<div class="container">
         <!-- DELETE COUNTRY -->
+        <div class="columns five">
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                    
+            <h3>Land entfernen</h3>
             
-            <p>Länder: 
+            <label>Länder:</label> 
             
-                <select name="startCountry" >
+            <p> <select name="startCountry" >
                     <?php
                         selectCountryDropbox();
                    ?> 
@@ -45,7 +50,7 @@ include './adminPanelFunctions.php';
         <!-- ADD NEW COUNTRY -->
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             
-            <p>Land hinzufügen: </p>
+            <h3>Land hinzufügen</h3>
 
                 <p>
                     <label>Länderabkürzung: </label>
@@ -86,14 +91,17 @@ include './adminPanelFunctions.php';
             }
             ?>
         </form>
+        </div>
         
         <!-- DELETE PRODUCT -->
+        <div class="columns five">
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             
-            <p>Produkte: 
+            <h3>Produkt entfernen</h3>
+            <label>Produkte:</label> 
             
-                <select name="product" >
-                    <option value="<?php echo $product; ?>"><?php echo $product; ?></option>
+            <p> <select name="product" >
+                
                     <?php
                         selectProductDropbox();
                    ?> 
@@ -123,5 +131,39 @@ include './adminPanelFunctions.php';
             }
             ?>
         </form>
+        
+        <!-- ADD PRODUCT -->
+        <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+            
+            <h3>Produkt hinzufügen</h3>
+            
+            <label>Produkte:</label> 
+                <p><input type="text" name="productAdd"> </p>
+            
+            <input type="submit" value="Hinzufügen">
+            
+            <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["productAdd"])){
+                
+                $productAdd = test_input($_POST["productAdd"]);
+                
+                if( $_POST["productAdd"] != ""){
+                    try{
+                        echo (addProduct($productAdd));
+                        //TO DO leere.php ersetzen mit Auflistung der eingegebenen Daten
+                        //header('Location: leere.php');
+
+                    }
+                    catch(Exception $e){
+                        echo "Fehler beim Datenbankzugriff. Bitte dem Administrator Bescheid geben.";
+                    }
+                }
+                else
+                    echo "TEST";
+            }
+            ?>
+        </form>
+        </div>
+</div>
     </body>
 </html>
