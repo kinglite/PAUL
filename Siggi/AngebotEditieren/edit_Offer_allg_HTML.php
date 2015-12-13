@@ -1,18 +1,18 @@
-<!Doctype HTML>
-<html> 
-    <head>
-        <style>
-            .error {color: #FF0000;}
-        </style>
-    </head>
-    
-    <body>    
-    
+<?php
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+//include head and header
+include_once ($root . "/PAUL/Template/template/head.php");
+include_once ($root . "/PAUL/Template/template/header.php");   
+?>    
+<div class="container">
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 
+            <p></p>
+            <div class="columns five">
             <?php
             if($table == 'organisation_offer'){
-            echo "<p>Ihr Organame: <input type=\"text\" name=\"name\" value=\"";
+            echo "Ihr Organame: <p><input type=\"text\" name=\"name\" value=\"";
                                 
                 if(!isset($_POST['name']))
                     echo getColumnData($id, 'name')."\">";
@@ -22,7 +22,7 @@
                 echo "<span class=\"error\">$nameErr</span>";
             echo "</p>";
             
-            echo "<p>Ansprechpartner: <input type=\"text\" name=\"contact\" value=\"";
+            echo "Ansprechpartner: <p><input type=\"text\" name=\"contact\" value=\"";
                 if(!isset($_POST['contact']))
                     echo getColumnData($id, 'contact')."\">";
                 else
@@ -32,7 +32,7 @@
             echo "</p>";
             }
             else{
-                echo "<p>Ihr Name: <input type=\"text\" name=\"name\" value=\"";
+                echo "Ihr Name: <p><input type=\"text\" name=\"name\" value=\"";
                                 
                 if(!isset($_POST['name']))
                     echo getColumnData($id, 'name')."\">";
@@ -44,7 +44,8 @@
             }
             ?>
             
-            <p>Ihre eMail: <input type="email" name="eMail" value=
+            Ihre eMail: 
+            <p><input type="email" name="eMail" value=
                                 <?php
                                 if(!isset($_POST['eMail']))
                                     echo getColumnData($id, 'eMail');
@@ -53,10 +54,12 @@
                                 ?>>
                 <span class="error"> <?php echo $eMailErr;?></span>
             </p>
+            </div>
             
-            <p>Das Startland: 
+            <div class="columns five">
+            Das Startland: 
             
-                <select name="startCountry">
+                <p><select name="startCountry">
                     <option value=
                         <?php
                         if(!isset($_POST['startCountry']))
@@ -79,7 +82,8 @@
                 <span class="error"> <?php echo $startCErr;?></span>
             </p>  
             
-            <p>Das Startdorf: <input type="text" name="startVillage" value=
+            Das Startdorf: 
+            <p><input type="text" name="startVillage" value=
                 <?php
                 if(!isset($_POST['startVillage']))
                     echo getColumnData($id, 'startVillage');
@@ -88,10 +92,12 @@
                 ?>>
                 <span class="error"> <?php echo $startVErr;?></span>
             </p>
+            </div>
             
-            <p>Das Zielland:  
+            <div class="columns five">
+            Das Zielland:  
             
-                <select name="destCountry">
+                <p><select name="destCountry">
                     <option value=
                         <?php
                         if(!isset($_POST['destCountry']))
@@ -114,7 +120,8 @@
                 <span class="error"> <?php echo $destCErr;?></span>
             </p>
                         
-            <p>Das Zieldorf: <input type="text" name="destVillage" value=
+            Das Zieldorf: 
+            <p><input type="text" name="destVillage" value=
                 <?php
                 if(!isset($_POST['destVillage']))
                     echo getColumnData($id, 'destinationVillage');
@@ -123,8 +130,11 @@
                 ?>>
                 <span class="error"> <?php echo $destVErr;?></span>
             </p>
+            </div>
             
-            <p>Das Startdatum: <input type="date" name="startDate" value=
+            <div class="columns five">
+            Das Startdatum: 
+            <p><input type="date" name="startDate" value=
                 <?php
                 if(!isset($_POST['startDate']))
                     echo reformDatetoNormal(getColumnData($id, 'startDate'));
@@ -134,7 +144,8 @@
                 <span class="error"> <?php echo $startDateErr;?></span>
             </p>
             
-            <p>Das Enddatum: <input type="date" name="endDate" value=
+            Das Enddatum: 
+            <p><input type="date" name="endDate" value=
                 <?php
                 if(!isset($_POST['endDate']))
                     echo reformDatetoNormal(getColumnData($id, 'endDate'));
@@ -143,17 +154,24 @@
                 ?>>
                 <span class="error"> <?php echo $endDateErr;?></span>
             </p>
-            <p>Welches Produkt: 
-                    
+            </div>
+            
+            <div class="columns five">
+            Welches Produkt: 
+            <p>        
                     <?php      
                         checkBoxProductsFilled($id);
                     ?>
-            <p>
+            
                 <span class="error"> <?php echo $productErr;?></span>
-            <p><input type="submit" /></p>
+                <p>
+            <input type="submit" />
+            </div>
         </form>
-    </body>
-    
-</html>
+</div>
+<?php
+// include footer
+include_once ($root . "/PAUL/Template/template/footer.php");
 
+?>
 

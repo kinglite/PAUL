@@ -1,7 +1,10 @@
-<!Doctype HTML>
-<html>
-    
-    <body>
+<?php
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+//include head and header
+include_once ($root . "/PAUL/Template/template/head.php");
+include_once ($root . "/PAUL/Template/template/header.php");   
+?>
         <table style="width: 100%">
             <tr align="left">
                           <th>Angebots-ID</th>
@@ -59,6 +62,9 @@
                   }
             ?>
         </table>
-    </body>
 
-</html>
+<?php
+// include footer
+include_once ($root . "/PAUL/Template/template/footer.php");
+
+?>
