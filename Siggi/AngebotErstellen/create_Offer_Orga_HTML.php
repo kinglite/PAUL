@@ -1,5 +1,7 @@
 <?php
 $table = 'organisation_offer';
+//$id = $_POST['offerID'];
+$id = 1;
 include './create_Offer_allg_HTML.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){

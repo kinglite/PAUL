@@ -3,7 +3,10 @@
 $root = $_SERVER['DOCUMENT_ROOT'];
 //include head and header
 include_once ($root . "/PAUL/Template/template/head.php");
-include_once ($root . "/PAUL/Template/template/header.php");   
+include_once ($root . "/PAUL/Template/template/header.php");
+include './AngebotEditieren/Edit_HTML_functions.php';
+include './filterOrgalistFunction.php';
+include './dbConnect.php';
 ?>
         <table style="width: 100%">
             <tr align="left">
@@ -18,9 +21,6 @@ include_once ($root . "/PAUL/Template/template/header.php");
                           <th>Kontakt</th>
             </tr>
             <?php
-                include './filterOrgalistFunction.php';
-                  include './dbConnect.php';
-
                   $statement = filterNone();
                   //$statement = filterStartCountry("Deutschland");
                    $id = -1;
@@ -40,7 +40,7 @@ include_once ($root . "/PAUL/Template/template/header.php");
                           echo "<td>" . htmlspecialchars($row['startVillage']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['destCountry']) . "</td>\n";
                           echo "<td>" . htmlspecialchars($row['destinationVillage']) . "</td>\n";
-                          echo "<td>" . htmlspecialchars($row['startDate']) . "</td>\n";
+                          echo "<td>" . reformDatetoNormal(htmlspecialchars($row['startDate'])) . "</td>\n";
                           echo "<td>";
                           
                           do{

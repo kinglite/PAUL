@@ -82,6 +82,17 @@ function selectCountryDropbox(){
         } catch (Exception $ex) {
 
         }
+}
 
-
+function getAccountColumnData($id, $column){
+    
+    global $db;
+    
+    $statement = $db->prepare("SELECT $column FROM accounts WHERE ID = ? ");
+    
+    $statement->execute(array($id));
+    //foreach ($db->query($statement) as $row){
+        $result = $statement->fetchColumn();
+        return $result;
+    //}
 }

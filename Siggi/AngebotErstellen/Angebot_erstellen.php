@@ -52,8 +52,9 @@ function create_Offer( $table, $name, $contact, $eMail, $startCountry, $startVil
         $lastInsertID = $db->lastInsertId();
 
         foreach ($products as $p){
-            $statement2 = $db->prepare("INSERT INTO $tableName2 values( (SELECT products.ID FROM products WHERE products.productname LIKE '$p'), $lastInsertID)");
-            $statement2->execute();
+            
+            $statement2 = $db->prepare("INSERT INTO $tableName2 values( (SELECT products.ID FROM products WHERE products.productname LIKE '$p'), ?)");
+            $statement2->execute(array($lastInsertID));
         }
     }
     catch(Exception $e){

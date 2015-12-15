@@ -8,20 +8,32 @@ include './Angebot_erstellen.php';
 include './Offer_HTML_functions.php';
 include './eingabeCheck.php';
 
+$id = 1;
+
 
 
 ?>
 <div class="container">
         <form onSubmit="return" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <p></p>
+            <?php
+            if($table == 'deliverer_offer'){
+                echo "<h2>Privatpersonen Angebote</h2>";
+            }
+            else{
+               echo "<h2>Organisation Angebote</h2>"; 
+            }
+            ?>
             <div class="columns five">
             <?php 
             if($table == 'deliverer_offer'){
+                
                 echo "Ihr Name*: <p><input type=\"text\" name=\"name\" value=\"$name\" required=\"required\">" .
                 "<span class=\"error\"> $nameErr</span>" .
                 "</p>";
             }
             else{
+                
               echo "Ihre Organisation*: <p><input type=\"text\" name=\"name\" value=\"$name\" required=\"required\">" .
                 "<span class=\"error\"> $nameErr</span>" .
                 "</p>";
@@ -31,7 +43,12 @@ include './eingabeCheck.php';
             }
             ?>
                 Ihre eMail*: 
-                <p><input type="email" name="eMail" value="<?php echo $eMail; ?>" required="required"/>
+                <p><input type="email" name="eMail" value="<?php
+                                if(!isset($_POST['eMail']))
+                                    echo getAccountColumnData($id, 'eMail');
+                                else
+                                    echo $eMail;
+                                ?>" required="required"/>
                 <span class="error"> <?php echo $eMailErr;?></span>
                 </p>
             </div>
